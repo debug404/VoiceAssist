@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.iflytek.assist.Model.ChatItemModel;
 import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.ui.RecognizerDialog;
 import com.iflytek.speech.setting.IatSettings;
@@ -21,9 +22,11 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    RecyclerView recyclerView;
-    ChatAdapter chatAdapter;
-    ImageView imageView;
+    private RecyclerView recyclerView;
+    private ChatAdapter chatAdapter;
+    private ImageView imageView;
+    private String speechText = "";
+    private IATHandler handler;
 
     private ChatAdapter.OnItemClickListener onItemClickListener = new ChatAdapter.OnItemClickListener() {
         @Override
@@ -35,12 +38,25 @@ public class MainActivity extends AppCompatActivity {
      IATHandler.IATDelegate delegate = new IATHandler.IATDelegate() {
          @Override
          public void onResult(String text, Boolean isLast) {
-             System.out.println("888888888888888888");
+             Toast.makeText(MainActivity.this,text,Toast.LENGTH_SHORT).show();
+             if (text.length() > 0) {
+                 speechText = text;
+                 if (isLast) {
+                     ChatItemModel model = new ChatItemModel();
+                     model.setVoiceText(speechText);
+                     model.setVoicePath(handler.getVoiceFilePath());
+
+                    chatAdapter.getArrayList().add(model);
+                    chatAdapter.notifyDataSetChanged();
+                    imageView.setBackgroundResource(R.drawable.voice_normal);
+                 }
+             }
          }
 
          @Override
          public void onError(String text) {
-             System.out.println("888888888888888888");
+             imageView.setBackgroundResource(R.drawable.voice_normal);
+             Toast.makeText(MainActivity.this,"出现错误，请检查后重试！",Toast.LENGTH_SHORT).show();
          }
      };
 
@@ -53,22 +69,11 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         imageView = (ImageView) findViewById(R.id.image_view);
 
-
         chatAdapter = new ChatAdapter(this,onItemClickListener);
-        chatAdapter.arrayList = new ArrayList<String>();
-        chatAdapter.arrayList.add("123123132");
-        chatAdapter.arrayList.add("123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132");
-        chatAdapter.arrayList.add("123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132");
-        chatAdapter.arrayList.add("123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132");
-        chatAdapter.arrayList.add("123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132123123132");
 
 
         recyclerView.setAdapter(chatAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        chatAdapter.notifyDataSetChanged();
-
-
-
 
 
 
@@ -78,12 +83,20 @@ public class MainActivity extends AppCompatActivity {
 //                Intent intent = new Intent();
 //                intent.setClass(MainActivity.this, com.iflytek.voicedemo.MainActivity.class);
 //                startActivity(intent);
-                view.setBackgroundResource(R.drawable.user);
+                view.setBackgroundResource(R.drawable.voice_unselected);
 
-                IATHandler handler = new IATHandler(MainActivity.this);
-                handler.delegate = MainActivity.this.delegate;
-                handler.start();
+                speechText = "";
 
+                if (handler == null) {
+                    handler = new IATHandler(MainActivity.this);
+                    handler.delegate = MainActivity.this.delegate;
+                }
+
+                if (!handler.isListening) {
+                    handler.start();
+                } else {
+                    handler.stop();
+                }
 
             }
         });

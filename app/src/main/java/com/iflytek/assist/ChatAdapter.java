@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.iflytek.assist.Model.ChatItemModel;
 import com.iflytek.voicedemo.R;
 
 import java.util.ArrayList;
@@ -23,12 +24,11 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
     private Context context;
     private OnItemClickListener mItemClickListener;
 
-    public ArrayList<String> arrayList;
+    private ArrayList<ChatItemModel> arrayList = new ArrayList<ChatItemModel>();
 
     public ChatAdapter(Context context,OnItemClickListener mItemClickListener){
         this.context = context;
         this.mItemClickListener = mItemClickListener;
-
     }
 
     public interface OnItemClickListener{
@@ -41,10 +41,9 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
         return new MyViewHolder(view);
     }
 
-
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
-        holder.textView.setText(arrayList.get(position));
+        holder.textView.setText(arrayList.get(position).getVoiceText());
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -58,17 +57,21 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
         return arrayList.size();
     }
 
+    //TODO
+        public ArrayList<ChatItemModel> getArrayList() {
+        return arrayList;
+    }
+
+
+
     class MyViewHolder extends RecyclerView.ViewHolder {
-
         private TextView textView;
-
         private LinearLayout linearLayout;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             textView = (TextView) itemView.findViewById(R.id.tv_question);
             linearLayout = (LinearLayout) itemView.findViewById(R.id.ll_chat);
-
         }
     }
 
