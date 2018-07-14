@@ -1,5 +1,6 @@
 package com.iflytek.assist;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -93,35 +94,31 @@ public class MainActivity extends AppCompatActivity {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent();
-//                intent.setClass(MainActivity.this, com.iflytek.voicedemo.MainActivity.class);
-//                startActivity(intent);
-                view.setBackgroundResource(R.drawable.voice_unselected);
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.this, AnswerActivity.class);
+                startActivity(intent);
 
-                speechText = "";
 
-                if (over) {
-                    Toast.makeText(MainActivity.this,"问答已经结束",Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (handler == null) {
-                    handler = new IATHandler(MainActivity.this);
-                    handler.delegate = MainActivity.this.delegate;
-                }
-
-                if (!handler.isListening) {
-                    handler.start();
-                } else {
-                    handler.stop();
-                }
-
+//                view.setBackgroundResource(R.drawable.voice_unselected);
+//                speechText = "";
+//                if (over) {
+//                    Toast.makeText(MainActivity.this,"问答已经结束",Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//                if (handler == null) {
+//                    handler = new IATHandler(MainActivity.this);
+//                    handler.delegate = MainActivity.this.delegate;
+//                }
+//                if (!handler.isListening) {
+//                    handler.start();
+//                } else {
+//                    handler.stop();
+//                }
 
 
 
 //                ttsHandler.speak("Hi,My name is grace!");
 //                ttsHandler.speak(" As the largest Intelligent Speech technology provider in China, iFLYTEK has long-term research accumulation in the Intelligent Speech area, and obtained leading technology world-wide in Chinese Speech Synthesis, Speech Recognition, and Speech Evaluation. iFLYTEK is the only \"National 863 Plan Achievement Industrialization Base\", \"Key Software Enterprises in State Plan\", \"Key high and new-tech enterprise of national Torch Plan\", \"National high-tech industrialization demonstration project\" with the direction of Speech Technology in China, and is determined as the Leading Organization of Chinese speech interaction technology Standards Working group, by Ministry of Information Industry, leading to set the Chinese Speech Technology standard. iFLYTEK obtained the only \"State Science and Technology Awards (Second prize)\" in Chinese speech industry in 2003, and the highest honor of independent innovation of Chinese IT industry \"Major technological inventions in Information Industry Awards\" in 2005, first rank of English Speech Synthesis Intenational Competition (Blizzard Challenge) for four consecutive years from 2006 to 2009, first rank of International Speaker Recognition and Evaluation Competition (National Institute of standards and technology - NIST 2008) in 2008, and first rank of International Language Recogntion Evaluation Contest (NIST 2009) high difficulty confusion dialect test, and second for General Contest in 2009.");
-
             }
         });
     }
@@ -153,6 +150,5 @@ public class MainActivity extends AppCompatActivity {
         over = true;
         return null;
     }
-
 
 }
