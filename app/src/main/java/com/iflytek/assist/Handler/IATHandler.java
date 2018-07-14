@@ -1,4 +1,4 @@
-package com.iflytek.assist;
+package com.iflytek.assist.Handler;
 
 import android.app.Activity;
 import android.content.Context;
@@ -69,7 +69,7 @@ public class IATHandler {
 
     }
 
-    public  IATHandler(Context context){
+    public IATHandler(Context context){
 
         mIat = SpeechRecognizer.createRecognizer(context, mInitListener);
 

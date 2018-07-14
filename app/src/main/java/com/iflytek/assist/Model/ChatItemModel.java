@@ -8,6 +8,15 @@ public class ChatItemModel {
 
     private String voicePath;
     private String voiceText;
+    private Boolean isQuestion;
+
+    public Boolean getQuestion() {
+        return isQuestion;
+    }
+
+    public void setQuestion(Boolean question) {
+        isQuestion = question;
+    }
 
     public String getVoicePath() {
         return voicePath;
