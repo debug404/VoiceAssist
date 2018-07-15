@@ -20,7 +20,6 @@ import java.util.ArrayList;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> {
 
-
     private Context context;
     private OnItemClickListener mItemClickListener;
 
@@ -37,7 +36,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_chat,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_chat,parent,false);//返回item对应的View
         return new MyViewHolder(view);
     }
 
@@ -55,14 +54,12 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
     @Override
     public int getItemCount() {
         return arrayList.size();
-    }
+    }//返回item数量
 
     //TODO
-        public ArrayList<ChatItemModel> getArrayList() {
+    public ArrayList<ChatItemModel> getArrayList() {
         return arrayList;
     }
-
-
 
     class MyViewHolder extends RecyclerView.ViewHolder {
         private TextView textView;
@@ -74,6 +71,5 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
             linearLayout = (LinearLayout) itemView.findViewById(R.id.ll_chat);
         }
     }
-
 
 }

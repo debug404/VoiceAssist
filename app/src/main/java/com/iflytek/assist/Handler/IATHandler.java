@@ -128,7 +128,7 @@ public class IATHandler {
         @Override
         public void onBeginOfSpeech() {
             // 此回调表示：sdk内部录音机已经准备好了，用户可以开始语音输入
-            showTip("开始说话");
+//            showTip("开始说话");
         }
 
         @Override
@@ -146,7 +146,7 @@ public class IATHandler {
         @Override
         public void onEndOfSpeech() {
             // 此回调表示：检测到了语音的尾端点，已经进入识别过程，不再接受语音输入
-            showTip("结束说话");
+//            showTip("结束说话");
             isListening = false;
         }
 
@@ -162,7 +162,7 @@ public class IATHandler {
 
         @Override
         public void onVolumeChanged(int volume, byte[] data) {
-            showTip("当前正在说话，音量大小：" + volume);
+//            showTip("当前正在说话，音量大小：" + volume);
             Log.d(TAG, "返回音频数据："+data.length);
         }
 

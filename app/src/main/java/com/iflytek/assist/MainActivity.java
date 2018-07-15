@@ -42,19 +42,24 @@ public class MainActivity extends AppCompatActivity {
              if (text.length() > 0) {
                  speechText = text;
                  if (isLast) {
+                    //设置路径
+                     chatAdapter.getArrayList().get(chatAdapter.getArrayList().size() - 1).setVoicePath(handler.getVoiceFilePath());
+
+                     //answer model
                      ChatItemModel model = new ChatItemModel();
                      model.setVoiceText(speechText);
                      model.setVoicePath(handler.getVoiceFilePath());
                      model.setQuestion(false);
 
                     chatAdapter.getArrayList().add(model);
-
                     imageView.setBackgroundResource(R.drawable.voice_normal);
 
+                    //获取最新的question model 加入列表
                     ChatItemModel questionModel = getNewQuestionAndSpeak();
                     if (questionModel != null) {
                         chatAdapter.getArrayList().add(questionModel);
                     }
+                    //刷新列表
                      chatAdapter.notifyDataSetChanged();
 
                  }
@@ -94,46 +99,47 @@ public class MainActivity extends AppCompatActivity {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.setClass(MainActivity.this, AnswerActivity.class);
-                startActivity(intent);
 
+                view.setBackgroundResource(R.drawable.voice_unselected);
 
-//                view.setBackgroundResource(R.drawable.voice_unselected);
-//                speechText = "";
-//                if (over) {
-//                    Toast.makeText(MainActivity.this,"问答已经结束",Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//                if (handler == null) {
-//                    handler = new IATHandler(MainActivity.this);
-//                    handler.delegate = MainActivity.this.delegate;
-//                }
-//                if (!handler.isListening) {
-//                    handler.start();
-//                } else {
-//                    handler.stop();
-//                }
+                speechText = "";
+                if (over) {//5个问题全部结束 进入下一个界面
+                    Toast.makeText(MainActivity.this,"问答已经结束",Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent();
+                    intent.setClass(MainActivity.this, AnswerActivity.class);
 
+                    intent.putParcelableArrayListExtra("values",megerQuestionAndAnswer());//向跳转到的视图传值
 
+                    startActivity(intent);
+                    return;
+                }
+                if (handler == null) {
+                    handler = new IATHandler(MainActivity.this);
+                    handler.delegate = MainActivity.this.delegate;
+                }
+                if (!handler.isListening) {//如果语音未启动 则可以start
+                    handler.start();
+                } else {
+                    handler.stop();
+                }
 
-//                ttsHandler.speak("Hi,My name is grace!");
+//                ttsHandler.speak("Hi,My name is Grace!");
 //                ttsHandler.speak(" As the largest Intelligent Speech technology provider in China, iFLYTEK has long-term research accumulation in the Intelligent Speech area, and obtained leading technology world-wide in Chinese Speech Synthesis, Speech Recognition, and Speech Evaluation. iFLYTEK is the only \"National 863 Plan Achievement Industrialization Base\", \"Key Software Enterprises in State Plan\", \"Key high and new-tech enterprise of national Torch Plan\", \"National high-tech industrialization demonstration project\" with the direction of Speech Technology in China, and is determined as the Leading Organization of Chinese speech interaction technology Standards Working group, by Ministry of Information Industry, leading to set the Chinese Speech Technology standard. iFLYTEK obtained the only \"State Science and Technology Awards (Second prize)\" in Chinese speech industry in 2003, and the highest honor of independent innovation of Chinese IT industry \"Major technological inventions in Information Industry Awards\" in 2005, first rank of English Speech Synthesis Intenational Competition (Blizzard Challenge) for four consecutive years from 2006 to 2009, first rank of International Speaker Recognition and Evaluation Competition (National Institute of standards and technology - NIST 2008) in 2008, and first rank of International Language Recogntion Evaluation Contest (NIST 2009) high difficulty confusion dialect test, and second for General Contest in 2009.");
             }
         });
     }
 
+    //初始化问题列表
     public void initQuestion(){
         over = false;
-        questionArray.add("Please call me a handsome guy");
-        questionArray.add("Please call me a handsome guy");
-        questionArray.add("Please call me a handsome guy");
-        questionArray.add("Please call me a handsome guy");
-        questionArray.add("Please call me a handsome guy");
-
-
+        questionArray.add("What subjects were your favorite? Why?");
+        questionArray.add("What subjects were your least favorite? Why?");
+        questionArray.add("Other than the courses you studied, what is the most important thing you learned from your college experience?");
+        questionArray.add("What kind of person do you want to be?");
+        questionArray.add("What's your favorite?");
     }
 
+    //获取最新问题，并播放
     public ChatItemModel getNewQuestionAndSpeak(){
         if (questionArray.size() > 0) {
             String question = questionArray.get(0);
@@ -149,6 +155,27 @@ public class MainActivity extends AppCompatActivity {
         }
         over = true;
         return null;
+    }
+
+    //将问题和答案进行合并
+    public ArrayList<ChatItemModel> megerQuestionAndAnswer(){
+
+        ArrayList<ChatItemModel> modelArrayList = new ArrayList<>();
+        for (int i =0;i < chatAdapter.getArrayList().size();i++) {
+
+            ChatItemModel model = chatAdapter.getArrayList().get(i);
+
+            if (model.getQuestion()) {
+                model.setQuestionText(model.getVoiceText());
+                modelArrayList.add(model);
+            } else {
+                modelArrayList.get(modelArrayList.size()-1).setAnswerText(model.getVoiceText());
+            }
+
+        }
+
+        return modelArrayList;
+
     }
 
 }
