@@ -3,22 +3,120 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context="com.iflytek.assist.MainActivity">
+    tools:context="com.iflytek.assist.MainActivity"
+    android:background="#feffff">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="0dp"
+        android:orientation="horizontal"
+        >
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/radius"
+        >
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="Hi"
+           android:layout_marginTop="22dp"
+           android:layout_marginLeft="5dp"
+           android:textSize="40dp"
+           />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Please click the voice button below \nafter the question"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:textSize="15dp"
+            />
+
+
+    </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/dog_logo" />
+
+
+    </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
+        android:layout_marginTop="0dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"/>
 
-    <ImageView
-        android:id="@+id/image_view"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center"
-        android:background="@drawable/voice_normal"
-        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        >
+
+        <ImageView
+            android:id="@+id/leftimg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="left|center_vertical"
+            android:layout_marginTop="60dp"
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/reload" />
+
+
+        <ImageView
+            android:id="@+id/image_view"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/voice_normal"
+            />
+
+        <!--<com.iflytek.assist.Animation-->
+            <!--android:id="@+id/image_view"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="0dp"-->
+            <!--android:layout_weight="1"-->
+            <!--app:diffuse_color="@color/colorAccent"-->
+            <!--app:diffuse_coreColor="@color/colorPrimaryDark"-->
+            <!--app:diffuse_coreImage="@drawable/voice_normal"-->
+            <!--app:diffuse_coreRadius="100"-->
+            <!--app:diffuse_maxWidth="300"-->
+            <!--app:diffuse_speed="5"-->
+            <!--app:diffuse_width="4"/>-->
+
+
+        <ImageView
+            android:id="@+id/rightimg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="60dp"
+            android:layout_gravity="right"
+            android:gravity="right|center_vertical"
+            android:background="@drawable/end"
+            android:layout_alignParentRight="true"
+            />
+
+
+    </RelativeLayout>
+
+
 </LinearLayout>

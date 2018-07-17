@@ -23,7 +23,7 @@
     <application
         android:name=".SpeechApp"
         android:icon="@drawable/icon"
-        android:label="讯飞语音示例">
+        android:label="评测助手">
         <activity
             android:name=".MainActivity"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|fontScale"

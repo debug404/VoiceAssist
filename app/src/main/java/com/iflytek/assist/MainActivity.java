@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        initQuestion(); 
+        initQuestion();
 
         if (ttsHandler == null) {
             ttsHandler = new TTSHandler(MainActivity.this);
@@ -132,11 +132,11 @@ public class MainActivity extends AppCompatActivity {
     //初始化问题列表
     public void initQuestion(){
         over = false;
-        questionArray.add("What subjects were your favorite? Why?");
-        questionArray.add("What subjects were your least favorite? Why?");
-        questionArray.add("Other than the courses you studied, what is the most important thing you learned from your college experience?");
-        questionArray.add("What kind of person do you want to be?");
-        questionArray.add("What's your favorite?");
+        questionArray.add("What subjects were your favorite?");
+//        questionArray.add("What subjects were your least favorite?");
+//        questionArray.add("Other than the courses you studied, what is the most important thing you learned from your college experience?");
+//        questionArray.add("What kind of person do you want to be?");
+//        questionArray.add("What's your favorite?");
     }
 
     //获取最新问题，并播放

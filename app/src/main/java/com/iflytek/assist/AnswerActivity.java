@@ -90,6 +90,7 @@ public class AnswerActivity extends AppCompatActivity {
                 //播放本地存储的语音文件
                 if (currentModel != null) {
                     mediaPlayer.reset();
+
                     try {
                         mediaPlayer.setDataSource(currentModel.getVoicePath());
                         mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
